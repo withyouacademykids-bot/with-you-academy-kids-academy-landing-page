@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استمارة تسجيل - With You Academy Kids</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts (Cairo) -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    body {
+        font-family: 'Cairo', sans-serif;
+        
+        /* --- إعدادات الخلفية --- */
+        /* استخدام صورة الخلفية التي قمت برفعها */
+        background-image: url('background.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+    .academy-header {
+        /* تم تحديث الألوان لتناسب اللوجو (كحلي - أزرق سماوي) */
+        background: linear-gradient(135deg, #1B315E 0%, #4A90E2 100%);
+        border-bottom: 6px solid #F2C94C; /* لون ذهبي من اللوجو */
+    }
+    .form-card {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    .input-field {
+        transition: all 0.3s ease;
+    }
+    .input-field:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+    }
+    /* Custom Modal Styles */
+    #successModal {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #successModal.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    #successModal:not(.hidden) {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+</style>
+
+
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+<!-- Header Section -->
+<header class="academy-header text-white py-10 px-4 text-center rounded-b-[3rem] shadow-lg mb-8 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+        <i class="fas fa-shapes absolute top-10 left-10 text-6xl animate-bounce"></i>
+        <i class="fas fa-star absolute bottom-10 right-10 text-5xl"></i>
+        <i class="fas fa-cloud absolute top-5 right-20 text-7xl"></i>
+    </div>
+    
+    <div class="relative z-10 container mx-auto">
+        <div class="relative inline-block mb-4 group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+            
+            <!-- تم التعديل هنا ليتطابق مع اسم ملفك المرفوع logo.jpg -->
+            <img src="logo.jpg" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/150x150/1B315E/FFF?text=Logo';" 
+                 alt="With You Academy Logo" 
+                 class="relative w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-white shadow-2xl object-cover bg-white">
+        </div>
+        
+        <h1 class="text-3xl md:text-5xl font-black mb-2 tracking-wide drop-shadow-md">WITH YOU ACADEMY KIDS</h1>
+        <p class="text-xl md:text-2xl font-bold text-yellow-300 mb-4 drop-shadow-sm">البداية الآمنة والمليئة بالحب</p>
+        
+        <div class="flex justify-center gap-4 text-sm md:text-base font-semibold bg-white/10 py-2 px-6 rounded-full inline-flex mx-auto backdrop-blur-md border border-white/20">
+            <span><i class="fas fa-shield-halved ml-2 text-yellow-400"></i>أمان</span>
+            <span>•</span>
+            <span><i class="fas fa-hand-holding-heart ml-2 text-yellow-400"></i>ثقة</span>
+            <span>•</span>
+            <span><i class="fas fa-book-open ml-2 text-yellow-400"></i>علم</span>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 flex-grow mb-12 max-w-3xl">
+    
+    <!-- Intro Card -->
+    <div class="bg-white rounded-2xl p-6 mb-6 text-center border-b-4 border-blue-800 shadow-sm">
+        <p class="text-gray-700 leading-relaxed text-lg font-medium">
+            نؤمن بأن كل طفل هو عالم صغير، يحتاج إلى رعاية واهتمام. نوفر فرصة حقيقية لاكتشاف نفسه وموهبته الخاصة.
+            <br>
+            <span class="text-blue-800 font-bold block mt-2 text-xl">نستقبل الأطفال من عمر شهور حتى دخول المدارس</span>
+        </p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="bg-white rounded-3xl p-6 md:p-10 form-card border-t-8 border-yellow-400 relative">
+        <div class="absolute top-0 right-0 p-4 opacity-5">
+            <i class="fas fa-pencil-alt text-6xl"></i>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-center mb-8 text-blue-900 border-b-2 border-dashed border-gray-200 pb-4">
+            <i class="fas fa-file-signature ml-2 text-yellow-500"></i>استمارة تسجيل طفل جديد
+        </h2>
+
+        <!-- 
+            ==================  تم التعديل هنا (رابط Formspree الفعلي)  ==================
+            
+            action="https://formspree.io/f/mzznqeeg"
+            
+            =======================================================
+        -->
+        <form id="registrationForm" 
+              action="https://formspree.io/f/mzznqeeg" 
+              method="POST" 
+              onsubmit="showLoading(event)" 
+              class="space-y-6">
+            
+            <!-- حقل مخفي لتحديد الموضوع في البريد المرسل -->
+            <input type="hidden" name="_subject" value="طلب تسجيل جديد من صفحة هبوط الأكاديمية">
+            
+            <!-- Child Info -->
+            <div class="bg-blue-50 p-5 rounded-xl border border-blue-100">
+                <h3 class="font-bold text-blue-900 mb-4 flex items-center text-lg">
+                    <span class="bg-blue-200 p-2 rounded-lg ml-3"><i class="fas fa-baby text-blue-800"></i></span>
+                     بيانات الطفل
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">اسم الطفل (ثلاثي)</label>
+                        <input type="text" name="child_name" required class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 bg-white" placeholder="اكتب اسم الطفل هنا">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">تاريخ الميلاد</label>
+                        <input type="date" name="child_dob" required class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 bg-white">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guardian Info -->
+            <div class="bg-yellow-50 p-4 rounded-xl">
+                <h3 class="font-bold text-yellow-800 mb-4 flex items-center"><i class="fas fa-user-friends ml-2 text-xl"></i> بيانات ولي الأمر</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">اسم ولي الأمر</label>
+                        <input type="text" name="guardian_name" required class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-yellow-500 bg-white" placeholder="الاسم بالكامل">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">رقم الهاتف (موبايل)</label>
+                        <input type="tel" name="phone" required pattern="[0-9]{11}" class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-yellow-500 bg-white text-left" dir="ltr" placeholder="01xxxxxxxxx">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">العنوان بالتفصيل</label>
+                        <input type="text" name="address" required class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-yellow-500 bg-white" placeholder="الشارع - رقم العمارة - المنطقة">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscription Details -->
+            <div class="bg-green-50 p-4 rounded-xl">
+                <h3 class="font-bold text-green-800 mb-4 flex items-center"><i class="fas fa-clock ml-2 text-xl"></i> تفاصيل الاشتراك</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">نظام الاشتراك</label>
+                        <select name="subscription_plan" class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500 bg-white">
+                            <option>اشتراك شهري</option>
+                            <option>استضافة بالساعة</option>
+                            <option>اشتراك نصف شهري</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-600">الفترة المفضلة</label>
+                        <select name="preferred_period" class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500 bg-white">
+                            <option>فترة صباحية</option>
+                            <option>فترة مسائية</option>
+                            <option>طوال اليوم</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label class="block text-sm font-semibold mb-1 text-gray-600">ملاحظات إضافية (حساسية، أدوية، عادات خاصة)</label>
+                <textarea name="notes" class="input-field w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 h-24" placeholder="اكتب أي تفاصيل تود إخبارنا بها..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitButton" class="w-full bg-gradient-to-l from-blue-600 to-purple-600 text-white font-bold py-4 px-8 rounded-xl hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-lg flex justify-center items-center gap-2">
+                <i class="fas fa-paper-plane"></i>
+                إرسال طلب التسجيل
+            </button>
+        </form>
+    </div>
+
+    <!-- Contact Info Card -->
+    <div class="mt-8 bg-white rounded-2xl p-6 shadow-md text-center">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">تواصل معنا أو زرنا في مقر الأكاديمية</h3>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-6">
+            <!-- Location Info with Google Maps Link -->
+            <a href="https://maps.app.goo.gl/y8YC7yif2mSJQRsV9" 
+               target="_blank" 
+               class="bg-gray-50 p-4 rounded-lg w-full md:w-auto hover:bg-gray-100 transition cursor-pointer group block border border-gray-200">
+                <i class="fas fa-map-marker-alt text-red-500 text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                <p class="text-gray-600 text-sm font-bold">ش أبو قير - الإبراهيمية</p>
+                <p class="text-gray-500 text-xs mt-1">آخر شارع البنك الأهلي، أمام أول سور نادي سبورتنج</p>
+                <p class="text-gray-500 text-xs">بجوار مدرسة صلاح سالم الابتدائية</p>
+                <span class="text-blue-500 text-xs font-semibold mt-2 block">عرض على الخريطة <i class="fas fa-external-link-alt text-xs mr-1"></i></span>
+            </a>
+            
+            <!-- Phone Info -->
+            <a href="tel:01558199986" class="bg-green-50 p-4 rounded-lg w-full md:w-auto hover:bg-green-100 transition cursor-pointer group border border-green-200">
+                <i class="fas fa-phone-volume text-green-600 text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                <p class="text-gray-600 text-sm font-bold">اتصل بنا الآن</p>
+                <p class="text-gray-800 font-mono text-lg font-bold mt-1">01558199986</p>
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white text-center py-6 mt-auto">
+    <p class="font-bold">With You Academy Kids &copy; 2024</p>
+    <p class="text-xs text-gray-400 mt-1">نصنع الذكريات الجميلة لأطفالكم</p>
+</footer>
+
+<!-- Loading Modal (Shown during submission) -->
+<div id="loadingModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+    <div class="bg-white rounded-2xl p-6 w-40 text-center shadow-2xl">
+        <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-3"></i>
+        <p class="text-gray-700 font-bold">جاري الإرسال...</p>
+    </div>
+</div>
+
+<!-- Success Modal (Shown after successful submission) -->
+<div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl transform scale-100 transition-transform">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-check text-4xl text-green-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">تم التسجيل بنجاح!</h3>
+        <p class="text-gray-600 mb-6">شكراً لثقتكم بنا. سيقوم فريق الأكاديمية بمراجعة الطلب والتواصل معكم قريباً لتأكيد المواعيد.</p>
+        <button onclick="closeModal('successModal')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full font-bold">
+            حسناً
+        </button>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl transform scale-100 transition-transform">
+        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-times text-4xl text-red-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">حدث خطأ في الإرسال!</h3>
+        <p class="text-gray-600 mb-6">الرجاء المحاولة مرة أخرى أو التواصل معنا مباشرة عبر الهاتف.</p>
+        <button onclick="closeModal('errorModal')" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition w-full font-bold">
+            إغلاق
+        </button>
+    </div>
+</div>
+
+<script>
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add('hidden');
+    }
+    
+    // This function handles the form submission via AJAX (to show loading and handle success/error nicely)
