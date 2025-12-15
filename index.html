@@ -20,7 +20,7 @@
         font-family: 'Cairo', sans-serif;
         
         /* --- إعدادات الخلفية --- */
-        /* استخدام صورة الخلفية التي قمت برفعها */
+        /* المسار: background.jpg */
         background-image: url('background.jpg');
         background-size: cover;
         background-attachment: fixed;
@@ -73,10 +73,10 @@
         <div class="relative inline-block mb-4 group">
             <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
             
-            <!-- تم التعديل هنا ليتطابق مع اسم ملفك المرفوع logo.png -->
+            <!-- تم التعديل: استخدام logo.png بدلاً من logo.jpg -->
             <img src="logo.png" 
-                 onerror="this.onerror=null; this.src='https://placehold.co/150x150/1B315E/FFF?text=Logo';" 
-                 alt="With You Academy Logo" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/150x150/1B315E/FFF?text=Academy+Kids';" 
+                 alt="شعار أكاديمية With You Kids" 
                  class="relative w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-white shadow-2xl object-cover bg-white">
         </div>
         
@@ -115,17 +115,11 @@
             <i class="fas fa-file-signature ml-2 text-yellow-500"></i>استمارة تسجيل طفل جديد
         </h2>
 
-        <!-- 
-            ==================  تم التعديل هنا (رابط Formspree الفعلي)  ==================
-            
-            action="https://formspree.io/f/mzznqeeg"
-            
-            =======================================================
-        -->
+        <!-- رابط Formspree الصحيح -->
         <form id="registrationForm" 
               action="https://formspree.io/f/mzznqeeg" 
               method="POST" 
-              onsubmit="showLoading(event)" 
+              onsubmit="submitForm(event)" 
               class="space-y-6">
             
             <!-- حقل مخفي لتحديد الموضوع في البريد المرسل -->
@@ -243,6 +237,7 @@
     <div class="bg-white rounded-2xl p-6 w-40 text-center shadow-2xl">
         <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-3"></i>
         <p class="text-gray-700 font-bold">جاري الإرسال...</p>
+        
     </div>
 </div>
 
@@ -257,6 +252,10 @@
         <button onclick="closeModal('successModal')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full font-bold">
             حسناً
         </button>
+        <a href="tel:01558199986" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-medium">
+            أو اتصل بنا مباشرة: 01558199986
+        </a>
+        
     </div>
 </div>
 
@@ -271,6 +270,9 @@
         <button onclick="closeModal('errorModal')" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition w-full font-bold">
             إغلاق
         </button>
+        <a href="tel:01558199986" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-medium">
+            اتصل بنا مباشرة: 01558199986
+        </a>
     </div>
 </div>
 
@@ -285,4 +287,39 @@
         modal.classList.add('hidden');
     }
     
-    // This function handles the form submission via AJAX (to show loading and handle success/error nicely)
+    const form = document.getElementById('registrationForm');
+    
+    // دالة إرسال النموذج باستخدام AJAX
+    function submitForm(e) {
+        e.preventDefault();
+        showModal('loadingModal');
+
+        const data = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            closeModal('loadingModal');
+            if (response.ok) {
+                form.reset();
+                showModal('successModal');
+            } else {
+                showModal('errorModal');
+            }
+        })
+        .catch(error => {
+            closeModal('loadingModal');
+            showModal('errorModal');
+        });
+    }
+
+    form.addEventListener('submit', submitForm);
+</script>
+
+</body>
+</html>
